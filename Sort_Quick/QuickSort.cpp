@@ -10,7 +10,7 @@ void swap(int* arr, int a, int b)
 
 void QuickSort(int* arr, int left, int right)
 {
-	int tempIndex = right + 1; //设置大于K值的最小索引位数，且同时兼具判断功能
+	int tempIndex = right + 1; //设置大于K值的最小索引位数，且同时兼具判断是否功能
 	for (int i = left + 1; i < right + 1; i++)
 	{
 		if (tempIndex == right + 1 && arr[left] < arr[i])
