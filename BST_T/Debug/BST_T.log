@@ -1,0 +1,4 @@
+﻿  源.cpp
+d:\projectofstudy\dataandalgorithms\vs\datastructuresandalgorithms\bst_t\binst.h(332): warning C4715: “BinST<int,int>::Insert”: 不是所有的控件路径都返回值
+d:\projectofstudy\dataandalgorithms\vs\datastructuresandalgorithms\bst_t\binst.h(360): warning C4715: “BinST<int,int>::Insert”: 不是所有的控件路径都返回值
+  BST_T.vcxproj -> D:\ProjectOfStudy\DataAndAlgorithms\VS\DataStructuresAndAlgorithms\Debug\BST_T.exe
