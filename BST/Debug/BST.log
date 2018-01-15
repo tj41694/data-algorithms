@@ -1,2 +1,6 @@
 ﻿  源.cpp
-  BST.vcxproj -> D:\ProjectOfStudy\DataAndAlgorithms\VS\DataStructuresAndAlgorithms\Debug\BST.exe
+  BinSearchTree.cpp
+  正在生成代码...
+d:\projectofstudy\dataandalgorithms\vs\algorithms\data-algorithms\bst\binsearchtree.cpp(344): warning C4715: “BinSearchTree::Width”: 不是所有的控件路径都返回值
+d:\projectofstudy\dataandalgorithms\vs\algorithms\data-algorithms\bst\binsearchtree.cpp(206): warning C4715: “BinSearchTree::Delete”: 不是所有的控件路径都返回值
+  BST.vcxproj -> D:\ProjectOfStudy\DataAndAlgorithms\VS\Algorithms\data-algorithms\Debug\BST.exe

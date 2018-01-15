@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include<stack>
 
 class AVLTree
 {
@@ -9,11 +10,18 @@ private:
 		int value;
 		Node* left;
 		Node* right;
+		Node* parent; //备用
 		int bf;			//平衡因子
 	};
+	struct nodetToChange
+	{
+		Node** ppTemp;
+		int bf;
+	};
+
 	Node* root;
 
-	Node* Find(Node* node, int val)
+	Node* Find(Node*& node, int val)
 	{//非递归
 		if (node == nullptr) return nullptr;
 		Node* temp = node;
@@ -50,69 +58,140 @@ private:
 		}
 	}
 
-	void Insert(Node*& node, int val)
+	void Insert(Node*& root, int val)
 	{//非递归
-		if (node == nullptr)
+		if (root == nullptr)
 		{
-			node = new Node{ val,nullptr,nullptr,0 };
+			root = new Node{ val,nullptr,nullptr,nullptr,0 };
 			return;
 		}
-		if (node->value == val)
+		if (root->value == val)
 		{
 			std::cout << "值重复!取消插入";
 			return;
 		}
-		Node* pTemp = node;
-		while (true)
+		Node** ppNode = &root; //指向节点的指针的指针
+
+		std::stack<nodetToChange> nodeStack;
+		while (true)//查找循环
 		{
-			if (val > pTemp->value)
+			if (val > (*ppNode)->value)
 			{
-				if (pTemp->right == nullptr)
+				nodetToChange stru{ ppNode,-1 };
+				nodeStack.push(stru); //指向当前节点的指针的指针入栈、bf可能的改变值入栈
+				if ((*ppNode)->right) ppNode = &(*ppNode)->right;
+				else //进行插入
 				{
-					pTemp->right = new Node { val,nullptr,nullptr,0 };
+					(*ppNode)->right = new Node{ val,nullptr,nullptr,(*ppNode),0 };
+					while (nodeStack.size())//回溯循环
+					{
+						(*ppNode)->bf += nodeStack.top().bf; //对当前节点的的bf值经行计算
+						if ((*ppNode)->bf == 0) return;//如果bf值为0，则表明对当前子树高度不产生影响 插入完成 退出循环
+						if ((*ppNode)->bf == 2) //如果等于2 则进行经行右旋转 退出循环
+						{
+							RRotation(ppNode);
+							return;
+						}
+						else if ((*ppNode)->bf == -2)//如果等于-2 则进行经行左旋转 退出循环
+						{
+							LRotation(ppNode);
+							return;
+						}
+						nodeStack.pop();
+						if (nodeStack.size() == 0) return;
+						ppNode = nodeStack.top().ppTemp;
+					}
 					return;
 				}
-				else pTemp = pTemp->right;
 			}
-			else if (val < pTemp->value)
+			else if (val < (*ppNode)->value)
 			{
-				if (pTemp->left == nullptr)
+				nodetToChange stru{ ppNode,1 };
+				nodeStack.push(stru); //指向当前节点的指针的指针入栈、bf可能的改变值入栈
+				if ((*ppNode)->left) ppNode = &(*ppNode)->left;
+				else //进行插入
 				{
-					pTemp->left = new Node{ val,nullptr,nullptr,0 };
+					(*ppNode)->left = new Node{ val,nullptr,nullptr,(*ppNode),0 };
+					while (nodeStack.size())//向根节点回溯
+					{
+						(*ppNode)->bf += nodeStack.top().bf; //对当前节点的的bf值经行计算
+						if ((*ppNode)->bf == 0) return;//如果bf值为0，则表明对当前子树高度不产生影响 插入完成 退出循环
+						if ((*ppNode)->bf == 2) //如果等于2 则进行经行右旋转 退出循环
+						{
+							RRotation(ppNode);
+							return;
+						}
+						else if ((*ppNode)->bf == -2)//如果等于-2 则进行经行左旋转 退出循环
+						{
+							LRotation(ppNode);
+							return;
+						}
+						nodeStack.pop();
+						if (nodeStack.size() == 0) return;
+						ppNode = nodeStack.top().ppTemp;
+					}
 					return;
 				}
-				else pTemp = pTemp->left;
 			}
-			else if(val == pTemp->value)
+			else if (val == (*ppNode)->value)
 			{
 				std::cout << "值重复!取消插入";
 				return;
 			}
 		}
-
 	}
 
-	void Insert2(Node*& node, int val)
-	{//递归
-		if (node == nullptr)
+	void RRotation(Node** node)
+	{
+		if ((*node)->left->bf < 0) LRot((*node)->left);
+		RRot(*node);
+	}
+
+	void LRotation(Node** node)
+	{
+		if ((*node)->right->bf > 0) RRot((*node)->right);
+		LRot(*node);
+	}
+
+	void RRot(Node* &node)
+	{
+		Node* leftChild = node->left;
+		if (node->bf == 2)
 		{
-			node = new Node{ val,nullptr,nullptr,0 };
-			return;
+			node->bf = 0;
+			leftChild->bf = 0;
 		}
-		if		(val > node->value) Insert2(node->right, val);
-		else if (val < node->value) Insert2(node->left, val);
-		else std::cout << "值重复!取消插入";
+		else if (node->bf == 1)
+		{
+			leftChild->bf = -1;
+			if (node->left->bf == 1) node->bf = -1;
+			else node->bf = 0;
+		}
+		node->left = leftChild->right;
+		leftChild->right = node;
+		node = leftChild;
 	}
 
-	void LRot(Node* node)
+	void LRot(Node* &node)
 	{
-
+		Node* rightChild = node->right;
+		if (node->bf == -2)
+		{
+			node->bf = 0;
+			rightChild->bf = 0;
+		}
+		else if (node->bf == -1)
+		{
+			rightChild->bf = 1;
+			if (node->right->bf == -1) node->bf = 1;
+			else node->bf = 0;
+		}
+		node->right = rightChild->left;
+		rightChild->left = node;
+		node = rightChild;
 	}
 
-	void RRot(Node* node)
-	{
 
-	}
 public:
 	AVLTree() { root = nullptr; }
 	/*查找*/
