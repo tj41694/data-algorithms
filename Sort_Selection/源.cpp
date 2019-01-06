@@ -29,6 +29,7 @@ int main()
 	{
 		cout << arr[i];
 	}
+	cout << endl;
 	cin.get();
 	return 0;
 }
