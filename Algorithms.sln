@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sort_Quick", "Sort_Quick\So
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BinTreeAVL", "BinTreeAVL\BinTreeAVL.vcxproj", "{33467364-2D0B-4DE6-9FF9-C6F67AF67C76}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HashTable", "HashTable\HashTable.vcxproj", "{D4698744-2F2F-43D3-BEAF-CA66BBF3D4AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{33467364-2D0B-4DE6-9FF9-C6F67AF67C76}.Release|x64.Build.0 = Release|x64
 		{33467364-2D0B-4DE6-9FF9-C6F67AF67C76}.Release|x86.ActiveCfg = Release|Win32
 		{33467364-2D0B-4DE6-9FF9-C6F67AF67C76}.Release|x86.Build.0 = Release|Win32
+		{D4698744-2F2F-43D3-BEAF-CA66BBF3D4AD}.Debug|x64.ActiveCfg = Debug|x64
+		{D4698744-2F2F-43D3-BEAF-CA66BBF3D4AD}.Debug|x64.Build.0 = Debug|x64
+		{D4698744-2F2F-43D3-BEAF-CA66BBF3D4AD}.Debug|x86.ActiveCfg = Debug|Win32
+		{D4698744-2F2F-43D3-BEAF-CA66BBF3D4AD}.Debug|x86.Build.0 = Debug|Win32
+		{D4698744-2F2F-43D3-BEAF-CA66BBF3D4AD}.Release|x64.ActiveCfg = Release|x64
+		{D4698744-2F2F-43D3-BEAF-CA66BBF3D4AD}.Release|x64.Build.0 = Release|x64
+		{D4698744-2F2F-43D3-BEAF-CA66BBF3D4AD}.Release|x86.ActiveCfg = Release|Win32
+		{D4698744-2F2F-43D3-BEAF-CA66BBF3D4AD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
